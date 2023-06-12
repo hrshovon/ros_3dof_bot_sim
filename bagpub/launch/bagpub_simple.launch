@@ -1,0 +1,16 @@
+<launch>
+  <include file="$(find bot_config)/launch/demo.launch" />
+  <!--
+  In this tutorial we wait much longer for the robot transforms than we usually would,
+  because the user's machine might be quite slow.
+  -->
+  <param name="robot_description_planning/shape_transform_cache_lookup_wait_time" value="0.5" />
+
+  <!-- Play the rosbag that contains the pointcloud data -->
+  <node pkg="bagpub" type="bagpcl_simple_node" name="point_clouds" />
+
+  <!-- If needed, broadcast static tf for robot root -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="to_bot" args="0 0 0 0 0 0  world base_link" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="to_camera" args="0.00 0.10 0.60 3.14 0.07 -1.91 world camera_rgb_optical_frame" />
+
+</launch>

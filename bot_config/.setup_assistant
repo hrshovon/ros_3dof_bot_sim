@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: bot_resources
+    relative_path: urdf/bot_arm.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/first_arm.srdf
+  CONFIG:
+    author_name: rashid
+    author_email: hrshovon@gmail.com
+    generated_timestamp: 1686482401

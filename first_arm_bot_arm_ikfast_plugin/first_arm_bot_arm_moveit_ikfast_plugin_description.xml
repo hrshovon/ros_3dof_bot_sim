@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<library path="lib/libfirst_arm_bot_arm_moveit_ikfast_plugin">
+  <class name="first_arm_bot_arm/IKFastKinematicsPlugin" type="first_arm_bot_arm::IKFastKinematicsPlugin" base_class_type="kinematics::KinematicsBase">
+    <description>IKFast61 plugin for closed-form kinematics of first_arm bot_arm</description>
+  </class>
+</library>

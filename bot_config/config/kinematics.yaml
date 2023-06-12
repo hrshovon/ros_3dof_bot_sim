@@ -1,0 +1,5 @@
+bot_arm:
+  kinematics_solver: first_arm_bot_arm/IKFastKinematicsPlugin
+  kinematics_solver_search_resolution: 0.005
+  kinematics_solver_timeout: 5.000
+  kinematics_solver_attempts: 10

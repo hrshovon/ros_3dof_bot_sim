@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<!--
+This is a very simple 3 DOF robot arm.
+Three  movements are:
+1. revolve around z axis (-90 to +90 degrees)
+2. Upper arm and lower arm joints(0 to 90 degrees)
+Each link has been colored differently to understand its movement.
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="first_arm">
+  <material name="red">
+    <color rgba="1 0 0 1"/>
+  </material>
+  <material name="green">
+    <color rgba="0 1 0 1"/>
+  </material>
+  <material name="yellow">
+    <color rgba="0 1 1 1"/>
+  </material>
+  <material name="white">
+    <color rgba="1 1 1 0.5"/>
+  </material>
+  <material name="blue">
+    <color rgba="0 0 1 1"/>
+  </material>
+
+  <xacro:property name="radius_base" value="0.3" />
+  <xacro:property name="height_base" value="0.2" />
+  
+  <xacro:property name="radius_yaw" value="0.1" />
+  <xacro:property name="height_yaw" value="0.2" />
+
+  <xacro:property name="radius_arm" value="0.1" />
+  <xacro:property name="height_arm" value="0.6" />
+  
+  <xacro:property name="radius_wrist" value="0.05" />
+  <xacro:property name="height_wrist" value="0.2" />
+  
+  <xacro:property name="radius_finger_fixed" value="0.02" />
+  <xacro:property name="height_finger_fixed" value="0.1" />
+
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="3.06" />
+      <inertia ixx="0.3" ixy="0.0" ixz="0.0" iyy="0.3" iyz="0.0" izz="0.3" />
+    </inertial>
+  </link>
+
+
+  <link name="base_bot">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="3.06" />
+      <inertia ixx="0.3" ixy="0.0" ixz="0.0" iyy="0.3" iyz="0.0" izz="0.3" />
+    </inertial>
+    <visual>
+      <geometry>
+        <cylinder length="${height_base}" radius="${radius_base}" />
+      </geometry>
+      <origin xyz="0 0 0.1"/>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${height_base}" radius="${radius_base}" />
+      </geometry>
+      <origin xyz="0 0 0.1"/>
+    </collision>
+  </link>
+  
+  <joint name="base_to_base_bot" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_bot"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+  
+  <link name="base_yaw">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="3.06" />
+      <inertia ixx="0.3" ixy="0.0" ixz="0.0" iyy="0.3" iyz="0.0" izz="0.3" />
+    </inertial>
+    <visual>
+      <geometry>
+        <cylinder length="${height_yaw}" radius="${radius_yaw}" />
+      </geometry>
+      <origin xyz="0 0 0.1"/>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${height_yaw}" radius="${radius_yaw}" />
+      </geometry>
+      <origin xyz="0 0 0.1"/>
+    </collision>
+  </link>
+  
+  <joint name="joint_0" type="revolute">
+    <dynamics damping="1.0"/>
+    <parent link="base_bot"/>
+    <child link="base_yaw"/>
+    <origin xyz="0 0 0.2"/>
+    <limit effort="0.0" lower="-1.57" upper="1.57" velocity="1.0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+  
+  <link name="upper_arm">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="3.06" />
+      <inertia ixx="0.3" ixy="0.0" ixz="0.0" iyy="0.3" iyz="0.0" izz="0.3" />
+    </inertial>
+    <visual>
+      <geometry>
+        <cylinder length="${height_arm}" radius="${radius_arm}" />
+      </geometry>
+      <origin rpy = "0 0 0" xyz="0.1 0 0.3"/>
+      <material name="yellow"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${height_arm}" radius="${radius_arm}" />
+      </geometry>
+      <origin rpy = "0 0 0" xyz="0.1 0 0.3"/>
+    </collision>
+  </link>
+  
+  <joint name="joint_1" type="revolute">
+    <dynamics damping="1.0"/>
+    <parent link="base_yaw"/>
+    <child link="upper_arm"/>
+    <origin xyz="0.1 0 0.2"/>
+    <limit effort="0.0" lower="0" upper="1.57" velocity="2.0"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <link name="arm">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="3.06" />
+      <inertia ixx="0.3" ixy="0.0" ixz="0.0" iyy="0.3" iyz="0.0" izz="0.3" />
+    </inertial>
+    <visual>
+      <geometry>
+        <cylinder length="${height_arm}" radius="${radius_arm}" />
+      </geometry>
+      <origin rpy = "0 0 0" xyz="0 0 0.3"/>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${height_arm}" radius="${radius_arm}" />
+      </geometry>
+      <origin rpy = "0 0 0" xyz="0 0 0.3"/>
+    </collision>
+  </link>
+  
+  <joint name="joint_2" type="revolute">
+    <dynamics damping="1.0"/>
+    <parent link="upper_arm"/>
+    <child link="arm"/>
+    <origin xyz="-0.1 0 0.6"/>
+    <limit effort="0.0" lower="0" upper="1.57" velocity="2.0"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+  
+  <link name="finger_low">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <cylinder length="${height_finger_fixed}" radius="${radius_finger_fixed}" />
+      </geometry>
+      <origin rpy = "0 0 0" xyz="0 0 0.02"/>
+      <material name="yellow"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${height_finger_fixed}" radius="${radius_finger_fixed}" />
+      </geometry>
+      <origin rpy = "0 0 0" xyz="0 0 0.6"/>
+    </collision>
+  </link>
+  
+  <joint name="joint_fixed_finger" type="fixed">
+    <parent link="arm"/>
+    <child link="finger_low"/>
+    <origin xyz="0 0 0.6"/>
+  </joint>
+  
+</robot>
