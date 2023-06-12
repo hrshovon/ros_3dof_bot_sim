@@ -24,7 +24,7 @@ After that, everything should be good to go.
 
 # Creating a xacro file to describe the robot
 Here is also the xacro file for optimization
-
+```
 <?xml version="1.0"?>
 <!--
 This is a very simple 3 DOF robot arm.
@@ -220,6 +220,7 @@ Each link has been colored differently to understand its movement.
   </joint>
   
 </robot>
+```
 # Testing
 This following command was used to create the cisualization
 ros2 launch urdf_tutorial display.launch.py model:=src/bot_resources/urdf/bot_arm.xacro
