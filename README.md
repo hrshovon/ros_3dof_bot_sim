@@ -223,18 +223,9 @@ Each link has been colored differently to understand its movement.
 # Testing
 This following command was used to create the cisualization
 ros2 launch urdf_tutorial display.launch.py model:=src/bot_resources/urdf/bot_arm.xacro
-The resulting ARM is this:
+The resulting ARM is this: (This is an youtube video. Click on it to watch)
 
-
-```python
-%%HTML
-<iframe width="560" height="315" src="https://www.youtube.com/embed/eFMjEBVJh6E"></iframe>
-```
-
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/eFMjEBVJh6E"></iframe>
-
-
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/eFMjEBVJh6E/0.jpg)](http://www.youtube.com/watch?v=eFMjEBVJh6E "Joint limit Testing")
 
 # Checking urdf limits
 Out set limits
@@ -285,8 +276,6 @@ To run it, at first load the appropriate environment:
 roslaunch bagpub bagpub_simple.launch
 ```
 This will load up the environment with octomap point cloud.
-
-![image.png](attachment:5273b8a2-54b2-4c44-92d2-e5b3fb250ec5.png)
 
 Now we can open a second terminal and load our simple motion planner which will try to move the robot arm over an obstacle. There are two planned motions. First one just puts the arm in a convenient place. Second one is where path planning happens.
 command to run it
